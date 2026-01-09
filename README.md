@@ -1,13 +1,13 @@
 # Aerofit Market Segmentation: Optimizing Sales Strategy via Predictive Modeling
 
-> *Python | Random Forest | ANOVA | Tukey HSD | Probability Analysis*
+> *Python | Random Forest | Kruskal-Wallis Test | Probability Analysis*
 
 ---
 
-## Project Overview
+##  Project Overview
 An end-to-end data science project focused on customer segmentation and predictive modeling using demographic and behavioral data. The goal was to optimize Aerofit's sales strategy by moving from intuition-based selling to data-driven targeting.
 
-This workflow combines **Descriptive Statistics (Probability)**, **Machine Learning**, and **Hypothesis Testing** to ensure model outputs reflect real customer patterns.
+This workflow combines **Descriptive Statistics (Probability)**, **Machine Learning**, and **Robust Hypothesis Testing** to ensure model outputs reflect real customer patterns.
 
 ---
 
@@ -40,7 +40,7 @@ Based on the data, I identified three potential target profiles:
 
 ---
 
-## Workflow & Key Results
+##  Workflow & Key Results
 
 ### 1️⃣ Phase 1: Predictive Modeling (The Test)
 * **Goal:** Test if a Machine Learning model (Random Forest) could accurately distinguish between the three personas defined above.
@@ -48,11 +48,18 @@ Based on the data, I identified three potential target profiles:
 * **Failure Analysis:** The model performed perfectly on the **Premium (KP781)** segment but consistently confused the **Entry (KP281)** and **Mid-tier (KP481)** customers.
 
 ### 2️⃣ Statistical Validation (The Diagnosis)
-To confirm if the overlap was real or a model error, I performed **Hypothesis Testing**:
-* **One-Way ANOVA:** Confirmed significant income differences exist overall ($p < 0.05$).
-* **Tukey HSD Post-Hoc:**
-    * *KP281 vs KP481:* **No significant difference** (Overlap Mathematically Proven).
-    * *KP781 vs Others:* **Significant difference**.
+To confirm if the overlap between KP281 and KP481 was real or a model error, I performed rigorous hypothesis testing on **Income** (the primary feature).
+
+* **A. Assumption Checking:**
+    * **Normality (Shapiro-Wilk):** Failed ($p < 0.05$). The data is not normally distributed.
+    * **Homogeneity of Variance (Levene’s Test):** Failed ($p < 0.05$). The Premium group has significantly different variance.
+
+* **B. Robust Testing (The Pivot):**
+    * Since assumptions for ANOVA were violated, I switched to **Non-Parametric Tests**:
+    * **Kruskal-Wallis H Test:** Confirmed significant differences exist overall ($p < 0.05$).
+    * **Mann-Whitney U Test (Post-Hoc):**
+        * *KP281 vs KP481:* **No significant difference** ($p > 0.05$). The overlap is mathematically proven.
+        * *KP781 vs Others:* **Significant difference**.
 
 ### 3️⃣ Phase 2: Strategic Pivot (The Solution)
 Reframed the problem from "Product Prediction" to "Value Segmentation" based on the statistical proof:
@@ -67,7 +74,6 @@ Reframed the problem from "Product Prediction" to "Value Segmentation" based on 
 ---
 
 ## Business Recommendations
-
 1.  **Consolidate Marketing:** Stop running separate ad campaigns for KP281 and KP481. Their profiles are identical. Run a single "General Fitness" campaign to maximize ROI.
 2.  **Usage-Based Upselling:** Since demographics cannot predict the choice between the $1,500 and $1,750 models, sales staff should use **consultative selling** (asking about weekly usage) to upsell to the KP481.
 3.  **Premium Exclusivity:** Target the **Premium (KP781)** segment exclusively on high-income channels (LinkedIn) and fitness communities (Strava), as they are statistically distinct from the general population.
@@ -78,10 +84,12 @@ Reframed the problem from "Product Prediction" to "Value Segmentation" based on 
 * **Language:** Python
 * **Data Manipulation:** Pandas, NumPy
 * **Machine Learning:** Scikit-Learn (Random Forest)
-* **Statistics:** SciPy, Statsmodels (ANOVA, Tukey HSD)
+* **Statistics:** SciPy (Shapiro-Wilk, Levene, Kruskal-Wallis, Mann-Whitney U)
 * **Visualization:** Matplotlib, Seaborn
 
-## 💻 How to Run
+---
+
+## How to Run
 
 1. Clone the repository:  
 ```bash
